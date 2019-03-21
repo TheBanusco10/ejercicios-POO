@@ -1,0 +1,58 @@
+@startuml
+
+'hide fields
+'hide methods
+
+class CarritoCompra {
+
+- articulos: Articulo[]*
+- numArticulosSeleccionados: entero
+
++ void addArticulos(Articulo& articulo)
++ void borrarArticulos(Articulo& articulo)
++ string calcularPrecioFinaleIVA()
++ void incrementarArticulosMismoTipo(int id, int cuantos)
++ void reducirArticulosMismoTipo(int id, int cuantos)
++ void mostrarArticulos()
++ Articulo& getArticulo()
+
+}
+
+class Usuario {
+
+- nombre: cadena
+- apellido: cadena
+- correoElectronico: cadena
+- carritoCompra: CarritoCompra
+
++ string getNombre()
++ Usuario& cambiarNombre(string nuevoNombre)
++ string getApellido()
++ Usuario& cambiarApellido(string nuevoApellido)
++ string getCorreoElectronico()
++ Usuario& cambiarCorreoElectronico(string nuevoCorreo)
++ CarritoCompra& getCarritoCompra()
+
+}
+
+class Articulo {
+
+- id: entero
+- nombre: cadena
+- precio: float
+- descripcion: cadena
+- cantidad: entero
+
++ int getID()
++ Articulo& setPrecio(float nuevoPrecio)
++ float getPrecio()
++ Articulo& setDescripcion(string nuevaDescripcion)
++ string getDescripcion()
++ int getCantidad() const
+
+}
+
+CarritoCompra o-"*" Articulo
+Usuario *--"{1}" CarritoCompra
+
+@enduml
