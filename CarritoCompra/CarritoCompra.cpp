@@ -28,7 +28,6 @@ int CarritoCompra::GetNumArticulosSeleccionados() const {
     return numArticulosSeleccionados;
 }
 
-//TODO Añadir excepción para comprobar si el artículo que quiere introducir YA está en el carrito.
 void CarritoCompra::addArticulo(Articulo& articulo) {
 
     bool articuloEnCarrito = false;
@@ -64,7 +63,7 @@ void CarritoCompra::borrarArticulo(unsigned int cual) {
 Articulo& CarritoCompra::getArticulo(unsigned int cual) {
 
     if (cual == 0 || cual > numArticulosSeleccionados)
-        throw std::out_of_range("CarritoCompra::getArticulo, varible 'cual' fuera de los límites: " + cual);
+        throw std::out_of_range("CarritoCompra::getArticulo, varible 'cual' fuera de los límites: " + std::to_string(cual));
     
     return *articulos[cual-1];
 
@@ -112,6 +111,27 @@ void CarritoCompra::mostrarArticulos() {
 
 }
 
+void CarritoCompra::reducirNumArticulos(int idArticulo, unsigned int cuantos) {
 
-
-
+    bool encontrado = false;
+    
+    if(cuantos < 0)
+        throw std::out_of_range("CarritoCompra::reducirNumArticulos, variable cuantos fuera de los límites");
+    
+    for (int i = 0; i < numArticulosSeleccionados && !encontrado; i++) {
+        
+        if(articulos[i]->GetId() == idArticulo) {
+            encontrado = true;
+            articulos[i]->SetCantidad(articulos[i]->GetCantidad() - cuantos);
+            if(articulos[i]->GetCantidad() < 0)
+//                borrarArticulo(i+1);
+                articulos[i]->SetCantidad(0);
+                
+        }
+    }
+    
+    if(!encontrado)
+        throw std::domain_error("CarritoCompra::reducirNumArticulos, artículo para reducir no está en el carrito");
+    
+    
+}

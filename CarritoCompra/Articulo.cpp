@@ -11,6 +11,8 @@
  * Created on 21 de marzo de 2019, 10:30
  */
 
+#include <stdexcept>
+
 #include "Articulo.h"
 
 int Articulo::ID(0);
@@ -25,11 +27,17 @@ Articulo::Articulo() {
 //TODO Añadir excepción para el precio
 Articulo::Articulo(std::string nombre, float precio, std::string descripcion): nombre(nombre), precio(precio), descripcion(descripcion) {
 
+    if(precio <= 0)
+        throw std::invalid_argument("Articulo::Articulo, precio <= 0: " + nombre);
+    
     ID++;
     id = ID;
     
 }
 
+Articulo::Articulo(bool auxiliar): auxiliar(auxiliar) {
+    
+}
 
 Articulo::Articulo(const Articulo& orig) {
 }
@@ -71,5 +79,19 @@ int Articulo::GetCantidad() const {
 
 void Articulo::SetCantidad(int cantidad) {
     this->cantidad = cantidad;
+}
+
+Articulo& Articulo::operator=(Articulo& otro) {
+
+    if (this != &otro) {
+        
+        this->id = otro.id;
+        this->nombre = otro.nombre;
+        this->descripcion = otro.descripcion;
+        this->precio = otro.precio;
+        this->cantidad = otro.cantidad;
+    
+    }
+
 }
 

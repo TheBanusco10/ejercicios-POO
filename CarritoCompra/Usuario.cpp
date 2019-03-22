@@ -29,6 +29,7 @@ Usuario::Usuario(const Usuario& orig) {
 }
 
 Usuario::~Usuario() {
+    
 }
 
 void Usuario::SetCarritoCompra(CarritoCompra& carritoCompra) {

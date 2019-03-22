@@ -31,6 +31,7 @@ int main(int argc, char** argv) {
         Usuario david("David", "Jiménez Villarejo", "david@gmail.com");
         CarritoCompra carritoTienda;
         CarritoCompra carritoUsuario;
+        Articulo aux(1);
         
         david.SetCarritoCompra(carritoUsuario);
         
@@ -50,16 +51,19 @@ int main(int argc, char** argv) {
              << "\nArtículos disponibles"
              << "\n=====================\n" << endl;
         
-
+        
+        
+        
         while(idArticulo > 0 && idArticulo <= carritoTienda.GetNumArticulosSeleccionados()) {
             
             for (int i = 1; i <= carritoTienda.GetNumArticulosSeleccionados(); i++) {
+                
+                aux = carritoTienda.getArticulo(i);
 
-
-                cout << "ID: " << carritoTienda.getArticulo(i).GetId()
-                     << "\nNombre: " << carritoTienda.getArticulo(i).GetNombre()
-                     << "\nPrecio: " << carritoTienda.getArticulo(i).GetPrecio()
-                     << "\nDescripción: " << carritoTienda.getArticulo(i).GetDescripcion()
+                cout << "ID: " << aux.GetId()//carritoTienda.getArticulo(i).GetId()
+                     << "\nNombre: " << aux.GetNombre()
+                     << "\nPrecio: " << aux.GetPrecio()
+                     << "\nDescripción: " << aux.GetDescripcion()
                      << "\n=====================\n\n";
 
             }
@@ -75,20 +79,7 @@ int main(int argc, char** argv) {
         
         david.GetCarritoCompra().mostrarArticulos();
         
-//        cout << "====================="
-//             << "\nCompras"
-//             << "\n=====================\n" << endl;
-//        
-//        for (int i = 1; i <= david.GetCarritoCompra().GetNumArticulosSeleccionados(); i++) {
-//
-//
-//            cout << "ID: " << david.GetCarritoCompra().getArticulo(i).GetId()
-//                 << "\nNombre: " << david.GetCarritoCompra().getArticulo(i).GetNombre()
-//                 << "\nPrecio: " << david.GetCarritoCompra().getArticulo(i).GetPrecio()
-//                 << "\nDescripción: " << david.GetCarritoCompra().getArticulo(i).GetDescripcion()
-//                 << "\n=====================\n\n";
-//        }
-        
+        david.GetCarritoCompra().mostrarArticulos();
         
         cout << david.GetCarritoCompra().calcularPrecioFinaleIVA() << endl;
         
@@ -100,6 +91,10 @@ int main(int argc, char** argv) {
     }catch (std::out_of_range& oof) {
      
         std::cerr << "Error: " + std::string(oof.what());
+        
+    }catch (std::invalid_argument& ia) {
+        
+        std::cerr << "Error: " + std::string(ia.what());
         
     }
     

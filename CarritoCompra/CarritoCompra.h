@@ -32,6 +32,7 @@ public:
     Articulo& getArticulo(unsigned int cual);
     std::string calcularPrecioFinaleIVA() const;
     void mostrarArticulos();
+    void reducirNumArticulos(int idArticulo, unsigned int cuantos);
     
 private:
 
